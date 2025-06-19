@@ -74,6 +74,14 @@ def _default_options(p, exclude=[]):
     output.add_argument("--debug", default=False, help=argparse.SUPPRESS,
                         action="store_true")
 
+    # Add S3 log SSE flag
+    output.add_argument(
+        "--s3-log-sse",
+        choices=["default", "aws:kms", "aws"],
+        default="default",
+        help="S3 Server Side Encryption for log uploads: default, aws:kms, or aws (AES256) [default: default]"
+    )
+
     if 'vars' not in exclude:
         # p.add_argument('--vars', default=None,
         #               help='Vars file to substitute into policy')

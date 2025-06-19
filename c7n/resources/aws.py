@@ -215,8 +215,8 @@ def inspect_bucket_region(bucket, s3_endpoint, allow_public=False):
         # default to raising an exception as unsuitable location at
         # least for the output use case.
         #
-        # Dynamic use of urllib trips up static analyzers because of
-        # the potential to accidentally allow unexpected schemes like
+        # Dynamic use of urllib trips up static analyzers because of the
+        # potential to accidentally allow unexpected schemes like
         # file:/. Here we're hardcoding the https scheme, so we can
         # ignore those specific checks.
         #
@@ -715,11 +715,17 @@ class S3Output(BlobOutput):
         return self._transfer
 
     def upload_file(self, path, key):
+        # Determine SSE settings from context options
+        sse_flag = getattr(getattr(self.ctx, 'options', {}), 's3_log_sse', 'default')
+        extra_args = {'ACL': 'bucket-owner-full-control'}
+        if sse_flag == 'aws':
+            extra_args['ServerSideEncryption'] = 'AES256'
+        elif sse_flag == 'aws:kms':
+            extra_args['ServerSideEncryption'] = 'aws:kms'
+        # If 'default', do not set ServerSideEncryption (let AWS/S3 default)
         self.transfer.upload_file(
             path, self.bucket, key,
-            extra_args={
-                'ACL': 'bucket-owner-full-control',
-                'ServerSideEncryption': 'AES256'})
+            extra_args=extra_args)
 
 
 @clouds.register('aws')
