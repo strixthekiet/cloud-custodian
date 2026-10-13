@@ -70,6 +70,7 @@ ResourceMap = {
     "azure.machine-learning-workspace": "c7n_azure.resources.machine_learning.MachineLearningWorkspace", # noqa
     "azure.machine-learning-compute-cluster": "c7n_azure.resources.machine_learning_compute_cluster.MachineLearningComputeCluster", # noqa
     "azure.machine-learning-data-container": "c7n_azure.resources.machine_learning.MachineLearningDataContainer", # noqa
+    "azure.machine-learning-environment-version": "c7n_azure.resources.machine_learning_environment_version.MachineLearningEnvironmentVersion", # noqa
     "azure.machine-learning-job": "c7n_azure.resources.machine_learning_job.MachineLearningJob",
     "azure.machine-learning-model-version": "c7n_azure.resources.machine_learning_model_version.MachineLearningModelVersion", # noqa
     "azure.machine-learning-online-endpoint": "c7n_azure.resources.machine_learning_online_endpoint.MachineLearningOnlineEndpoint", # noqa
